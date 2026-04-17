@@ -1,14 +1,29 @@
-# Pixo
+# Pixo 🎨
 
-Pixo is a high-performance, open-source creative design studio built with Next.js, Fabric.js, and Genkit. It provides a polished, Canva-like experience with a focus on modern aesthetics, cinematic lighting, and AI-driven design strategy.
+Pixo is a high-performance **open-source creative design studio** built for the next generation of AI-driven design. 
 
-## ✨ Features
+While tools like Canva dominate the space, they remain closed ecosystems. Pixo was born from the need for an open-source alternative that doesn't just "generate pixels" with diffusion models, but actually **understands and manipulates design tools** through AI tool-calling.
 
-- **Professional Canvas**: Built on Fabric.js for smooth, multi-layered design editing.
-- **Design Genres**: Choose from curated aesthetic styles like *Cinematic Vortex*, *Glass Pulse*, *Tech Minimal*, and *Neon Vibe*.
-- **AI Integration**: Leverages Google GenAI and Genkit for magic media and design assistance.
-- **Real-time Infrastructure**: Powered by Firebase for authentication, database, and storage.
-- **Modern UI**: Polished interface built with Radix UI, Tailwind CSS, and Framer Motion.
+![Pixo UI in Action](./pixo-ui.png)
+*(Note: Please replace pixo-ui.png with your uploaded screenshot)*
+
+## 🧠 The Vision: AI Tool-Calling vs. Diffusion
+
+Most AI design tools today use Diffusion models to generate static images. This is great for art, but terrible for design flexibility. 
+
+**Pixo's goal is different:** We want to enable AI to:
+1.  **Call Tools**: Directly interact with the Fabric.js canvas, layers, and properties.
+2.  **Strategic Design**: Use Genkit and Gemini to strategically place elements, choose layouts, and adjust typography based on design principles.
+3.  **Full Editability**: Since the AI manipulates the code/canvas directly, every design remains 100% editable by the user.
+
+## ✨ Current State
+
+The **Frontend is mostly complete**. We have a polished, cinematic UI and a robust canvas engine ready for action. 
+
+**What we need now is "Mad & Intense functionality":**
+- Implementing complex tool-calling protocols.
+- Deep integration between Genkit and the Fabric.js engine.
+- Advanced layout algorithms that the AI can trigger.
 
 ## 🚀 Getting Started
 
@@ -25,26 +40,19 @@ npm install
 ```
 
 ### 3. Environment Setup
-Copy the example environment file:
-```bash
-cp .env.example .env.local
-```
-Fill in your Firebase credentials and AI API keys in `.env.local`.
+Fill in your Firebase credentials and AI API keys in `.env` (use `.env.example` as a template).
 
 ### 4. Run Development Server
 ```bash
 npm run dev
 ```
-Open [http://localhost:9001](http://localhost:9001) to see the studio.
 
 ## 🛠️ Tech Stack
 - **Framework**: Next.js 15
 - **Canvas Engine**: Fabric.js
-- **Styling**: Tailwind CSS
-- **Components**: Radix UI / Lucide React
-- **Animations**: Framer Motion
-- **Backend**: Firebase (Auth, Firestore)
-- **AI**: Google Genkit
+- **AI Orchestration**: Google Genkit
+- **Database/Auth**: Firebase
+- **Styling**: Tailwind CSS / Framer Motion
 
 ## 📄 License
-This project is open-source. See the LICENSE file for details.
+This project is licensed under the MIT License - making Pixo free and open for the community forever.
