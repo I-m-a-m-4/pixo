@@ -127,7 +127,7 @@ const GENRES: Record<DesignGenre, {
 }> = {
     cinematic_vortex: {
         name: "Vortex Cinematic",
-        description: "High-impact, cinematic lighting with dramatic textures (like your reference).",
+        description: "High-impact, cinematic lighting with dramatic textures.",
         colors: ["#000000", "#1a1a1a", "#ffffff", "#00d1ff"],
         fonts: ["'Plus Jakarta Sans'", "serif"],
         vibe: "Dramatic, Gritty, Bold"
@@ -403,7 +403,6 @@ export default function CreativeStudio() {
                     }
                 });
 
-                // (Removed separate mousedown listener since it is merged above)
 
 
                 canvas.on('selection:created', (e) => {

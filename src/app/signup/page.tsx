@@ -13,7 +13,7 @@ import { useAuth, useUser, useFirestore } from '@/firebase';
 import { initiateEmailSignUp } from '@/firebase/non-blocking-login';
 import { createUserProfileDocument } from '@/firebase/users';
 import Link from 'next/link';
-import { Leaf, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { Palette, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const signupSchema = z.object({
@@ -102,14 +102,14 @@ export default function SignupPage() {
       <Card className="w-full max-w-md text-white bg-black/50 backdrop-blur-lg border border-white/10">
         <CardHeader className="text-center">
             <Link href="/" className="flex items-center justify-center gap-2 mb-4 cursor-pointer">
-                <Leaf className="text-primary h-8 w-8" />
+                <Palette className="text-primary h-8 w-8" />
                 <span className="text-2xl font-bold tracking-tighter text-white font-display">
-                    GrowthOS
+                    Pixo
                 </span>
             </Link>
           <CardTitle className="text-2xl font-bold">Create an Account</CardTitle>
           <CardDescription className="text-gray-400">
-            Get started with your AI-powered growth platform.
+            Get started with Pixo design studio.
           </CardDescription>
         </CardHeader>
         <CardContent>

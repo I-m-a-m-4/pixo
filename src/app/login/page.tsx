@@ -12,7 +12,7 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '
 import { useAuth, useUser } from '@/firebase';
 import { initiateEmailSignIn } from '@/firebase/non-blocking-login';
 import Link from 'next/link';
-import { Leaf, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { Palette, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const loginSchema = z.object({
@@ -81,9 +81,9 @@ export default function LoginPage() {
       <Card className="w-full max-w-md text-white bg-black/50 backdrop-blur-lg border border-white/10">
         <CardHeader className="text-center">
             <Link href="/" className="flex items-center justify-center gap-2 mb-4 cursor-pointer">
-                <Leaf className="text-primary h-8 w-8" />
+                <Palette className="text-primary h-8 w-8" />
                 <span className="text-2xl font-bold tracking-tighter text-white font-display">
-                    GrowthOS
+                    Pixo
                 </span>
             </Link>
           <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>

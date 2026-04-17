@@ -57,7 +57,7 @@ export default function ContentTab() {
                     </div>
                     <div>
                         <CardTitle>AI Content Architect</CardTitle>
-                        <CardDescription className="mt-1">Describe your business niche, a product, or a topic. Our Gemini-powered agent will research the web and build a 100-day content strategy to help you dominate your market.</CardDescription>
+                        <CardDescription className="mt-1">Describe your business niche, a product, or a topic. Our AI-powered agent will research the web and build a 100-day content strategy to help you dominate your market.</CardDescription>
                     </div>
                 </div>
             </CardHeader>
@@ -75,7 +75,7 @@ export default function ContentTab() {
         </Card>
         
         <div className="space-y-6">
-             <h2 className="text-2xl font-bold tracking-tight">Your AI-Generated Content Plan</h2>
+             <h2 className="text-2xl font-bold tracking-tight">Your Strategic Content Plan</h2>
             
             {isLoading && renderSkeleton()}
 

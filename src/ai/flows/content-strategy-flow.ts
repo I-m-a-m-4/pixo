@@ -38,7 +38,7 @@ const prompt = ai.definePrompt({
   name: 'contentStrategyPrompt',
   input: {schema: ContentStrategyInputSchema},
   output: {schema: ContentStrategyOutputSchema},
-  prompt: `You are an expert-level content strategist and growth hacker named 'GrowthOS'.
+  prompt: `You are an expert-level content strategist and growth hacker named 'Pixo'.
   Your task is to create a 7-day '100-Day Streak' starter content strategy for a user based on their business topic.
 
   The user's topic is: '{{{topic}}}'

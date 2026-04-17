@@ -65,7 +65,7 @@ export default function AdsTab() {
                          <div className="flex flex-col items-center justify-center h-full text-center text-gray-500 py-10">
                             <BarChartIcon className="h-12 w-12 mb-4" />
                             <p className="font-medium">No Recommendations Yet</p>
-                            <p className="text-sm">AI analysis is running. Your ad budget recommendations will appear here.</p>
+                            <p className="text-sm">Strategic analysis is running. Your ad budget recommendations will appear here.</p>
                         </div>
                     )}
                 </CardContent>

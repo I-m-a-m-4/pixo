@@ -208,7 +208,7 @@ export default function SettingsTab() {
       <Card className="bg-gray-950/60 border-white/10 text-white">
         <CardHeader>
             <CardTitle className="flex items-center gap-2"><LinkIcon /> Integrations</CardTitle>
-            <CardDescription>Connect your accounts to unlock the full power of GrowthOS.</CardDescription>
+            <CardDescription>Connect your accounts to unlock the full power of Pixo.</CardDescription>
         </CardHeader>
         <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
