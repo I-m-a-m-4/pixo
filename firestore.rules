@@ -1,0 +1,188 @@
+rules_version = '2';
+
+/**
+ * Core Philosophy: This ruleset enforces a strict user-ownership model. All user-related
+ * data is stored in subcollections under that user's specific document. A user can only
+ * ever access their own data tree, ensuring strong data isolation between users.
+ *
+ * Data Structure: The database is structured hierarchically around users. The root of all
+ * private user data is the /users/{userId} path. All other user-specific collections,
+ * like 'goals', 'transactions', and 'surveys' are subcollections of this path.
+ *
+ * Key Security Decisions:
+ * - User Enumeration is Disabled: Listing the top-level '/users' collection is explicitly
+ *   forbidden to protect user privacy and prevent scraping of user IDs.
+ * - Default Deny: Access is denied by default. All allowed operations are explicitly granted.
+ * - No Public Data: There are no globally readable collections in this ruleset. All data
+ *   requires authentication and ownership checks.
+ *
+ * Denormalization for Authorization: To ensure fast and secure authorization, a 'userId'
+ * field is denormalized (copied) onto every 'goal', 'transaction', and 'survey' document. This allows
+ * security rules to validate ownership on writes without needing costly and slow `get()` calls
+ * to parent documents. Path-based security is used for reads.
+ *
+ * Structural Segregation: User data is naturally segregated into a private tree structure
+ * (e.g., /users/{userId}/...). This is a highly secure and performant pattern for managing
+ * user-owned data, as it simplifies list operations and prevents accidental data leakage.
+ */
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ------------------------------------------------------------------------
+    // Helper Functions
+    // ------------------------------------------------------------------------
+
+    /**
+     * Checks if the user is authenticated.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
+     * Checks if the currently authenticated user's ID matches the provided userId.
+     * This is the foundation of the ownership model.
+     * @param userId The user ID to check against the authenticated user.
+     */
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    /**
+     * Checks for ownership on an existing document. Used for update and delete
+     * operations to prevent acting on non-existent data.
+     * @param userId The user ID to check for ownership.
+     */
+    function isExistingOwner(userId) {
+      return isOwner(userId) && resource != null;
+    }
+    
+    /**
+     * Validates required authorization fields for creating a User document.
+     * Ensures the document's 'id' field matches the user's auth UID and the path.
+     */
+    function hasValidUserDataOnCreate(userId) {
+      return request.resource.data.id == userId;
+    }
+    
+    /**
+     * Ensures critical relational fields on a User document are immutable on update.
+     * The document's internal 'id' cannot be changed after creation.
+     */
+    function isUserDataImmutableOnUpdate() {
+      return request.resource.data.id == resource.data.id;
+    }
+
+    /**
+     * Validates required authorization fields for creating a Goal document.
+     * Enforces that the denormalized 'userId' field in the document data matches the path.
+     */
+    function hasValidGoalDataOnCreate(userId) {
+      return request.resource.data.userId == userId;
+    }
+
+    /**
+     * Ensures critical relational fields on a Goal document are immutable.
+     * The owning 'userId' cannot be changed after creation.
+     */
+    function isGoalDataImmutableOnUpdate() {
+      return request.resource.data.userId == resource.data.userId;
+    }
+
+    /**
+     * Validates required authorization fields for creating a Transaction document.
+     * Enforces that the denormalized 'userId' field in the document data matches the path.
+     */
+    function hasValidTransactionDataOnCreate(userId) {
+      return request.resource.data.userId == userId;
+    }
+
+    /**
+     * Ensures critical relational fields on a Transaction document are immutable.
+     * The owning 'userId' cannot be changed after creation.
+     */
+    function isTransactionDataImmutableOnUpdate() {
+      return request.resource.data.userId == resource.data.userId;
+    }
+
+    /**
+     * Validates required authorization fields for creating a Survey document.
+     * Enforces that the denormalized 'userId' field in the document data matches the path.
+     */
+    function hasValidSurveyDataOnCreate(userId) {
+      return request.resource.data.userId == userId;
+    }
+
+    /**
+     * Ensures critical relational fields on a Survey document are immutable.
+     * The owning 'userId' cannot be changed after creation.
+     */
+    function isSurveyDataImmutableOnUpdate() {
+      return request.resource.data.userId == resource.data.userId;
+    }
+
+    // ------------------------------------------------------------------------
+    // Collection Rules
+    // ------------------------------------------------------------------------
+
+    /**
+     * @description Manages user profile documents.
+     * @path /users/{userId}
+     * @allow A user (auth.uid='user123') creating their own profile at /users/user123. (create)
+     * @deny A user (auth.uid='userABC') trying to read a different user's profile at /users/user123. (get)
+     * @principle Restricts access to a user's own data tree and prevents user enumeration.
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isOwner(userId) && hasValidUserDataOnCreate(userId);
+      allow update: if isExistingOwner(userId) && isUserDataImmutableOnUpdate();
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Manages goals specific to a user.
+     * @path /users/{userId}/goals/{goalId}
+     * @allow A user (auth.uid='user123') listing all their goals at /users/user123/goals. (list)
+     * @deny A user (auth.uid='userABC') trying to create a goal for another user at /users/user123/goals. (create)
+     * @principle Enforces path-based ownership for all operations on a user's subcollection.
+     */
+    match /users/{userId}/goals/{goalId} {
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && hasValidGoalDataOnCreate(userId);
+      allow update: if isExistingOwner(userId) && isGoalDataImmutableOnUpdate();
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Manages transactions specific to a user.
+     * @path /users/{userId}/transactions/{transactionId}
+     * @allow A user (auth.uid='user123') deleting their own transaction at /users/user123/transactions/trans456. (delete)
+     * @deny An anonymous user trying to read any transaction. (get)
+     * @principle Enforces path-based ownership for all operations on a user's subcollection.
+     */
+    match /users/{userId}/transactions/{transactionId} {
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && hasValidTransactionDataOnCreate(userId);
+      allow update: if isExistingOwner(userId) && isTransactionDataImmutableOnUpdate();
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Manages survey responses for a user.
+     * @path /users/{userId}/surveys/{surveyId}
+     * @allow A user can create and update their own survey responses.
+     * @deny A user cannot access another user's survey responses.
+     * @principle Enforces path-based ownership.
+     */
+    match /users/{userId}/surveys/{surveyId} {
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && hasValidSurveyDataOnCreate(userId);
+      allow update: if isExistingOwner(userId) && isSurveyDataImmutableOnUpdate();
+      allow delete: if isExistingOwner(userId);
+    }
+  }
+}

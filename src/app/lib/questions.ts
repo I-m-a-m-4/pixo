@@ -1,0 +1,36 @@
+
+export const industries = [
+  { label: 'Technology', value: 'technology' },
+  { label: 'Healthcare', value: 'healthcare' },
+  { label: 'Finance', value: 'finance' },
+  { label: 'Education', value: 'education' },
+  { label: 'Retail', value: 'retail' },
+  { label: 'Manufacturing', value: 'manufacturing' },
+  { label: 'Real Estate', value: 'real estate' },
+  { label: 'Hospitality', value: 'hospitality' },
+  { label: 'Automotive', value: 'automotive' },
+  { label: 'Agriculture', value: 'agriculture' },
+  { label: 'Entertainment', value: 'entertainment' },
+  { label: 'Telecommunications', value: 'telecommunications' },
+  { label: 'Construction', value: 'construction' },
+  { label: 'Energy', value: 'energy' },
+  { label: 'Transportation & Logistics', value: 'transportation & logistics' },
+  { label: 'E-commerce', value: 'e-commerce' },
+  { label: 'Marketing & Advertising', value: 'marketing & advertising' },
+  { label: 'Consulting', value: 'consulting' },
+  { label: 'Non-profit', value: 'non-profit' },
+  { label: 'Other', value: 'other' },
+];
+
+export const surveyQuestions = [
+  { id: 'goal', label: 'What is your primary goal for your business this year?', type: 'text', placeholder: 'e.g., Increase online sales by 20%' },
+  { id: 'businessName', label: 'What is the name of your business?', type: 'text', placeholder: 'e.g., Acme Inc.' },
+  { id: 'websiteUrl', label: 'What is your business website URL?', type: 'text', placeholder: 'e.g., https://acme.com' },
+  { id: 'industry', label: 'What is your industry?', type: 'combobox', options: industries },
+  { id: 'teamSize', label: 'What is the current size of your team?', type: 'select', options: ['1-5', '6-10', '11-50', '51-200', '200+'] },
+  { id: 'challenge', label: 'What is your biggest marketing challenge?', type: 'text', placeholder: 'e.g., Generating high-quality leads' },
+  { id: 'competitorUrl', label: 'What is the website of your biggest competitor?', type: 'text', placeholder: 'e.g., https://competitor.com' },
+  { id: 'revenue', label: 'What is your estimated annual revenue?', type: 'select', options: ['<$50K', '$50K-$250K', '$250K-$1M', '$1M-$5M', '$5M+'] },
+  { id: 'tracking', label: 'How do you currently track sales and customer data?', type: 'text', placeholder: 'e.g., Spreadsheets, CRM, Google Analytics' },
+  { id: 'objective', label: 'What are you hoping to achieve with GrowthOS?', type: 'textarea', placeholder: 'e.g., Automate content creation and get data-driven insights' },
+];

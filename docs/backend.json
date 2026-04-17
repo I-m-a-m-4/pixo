@@ -1,0 +1,226 @@
+
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the GrowthOS platform.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email address.",
+          "format": "email"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The user's display name."
+        },
+        "surveyCompleted": {
+            "type": "boolean",
+            "description": "Whether the user has completed the initial onboarding survey."
+        },
+        "websiteUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "The user's primary business website."
+        },
+        "twitterHandle": {
+            "type": "string",
+            "description": "User's Twitter (X) handle."
+        },
+        "instagramHandle": {
+            "type": "string",
+            "description": "User's Instagram handle."
+        },
+        "linkedinHandle": {
+            "type": "string",
+            "description": "User's LinkedIn handle."
+        },
+        "yearlySalesGoal": {
+            "type": "number",
+            "description": "The user's target sales amount for the year."
+        },
+        "yearlyEngagementGoal": {
+            "type": "number",
+            "description": "The user's target social media engagement for the year."
+        }
+      },
+      "required": [
+        "id",
+        "email"
+      ]
+    },
+    "Goal": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Goal",
+      "type": "object",
+      "description": "Represents a yearly goal set by the user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the goal."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to the User entity. (Relationship: User 1:N Goal)"
+        },
+        "year": {
+          "type": "number",
+          "description": "The year the goal is set for (e.g., 2026)."
+        },
+        "targetSales": {
+          "type": "number",
+          "description": "The target sales amount for the year."
+        },
+        "targetSocialMediaEngagement": {
+          "type": "number",
+          "description": "The target social media engagement for the year."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "year",
+        "targetSales",
+        "targetSocialMediaEngagement"
+      ]
+    },
+    "Transaction": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Transaction",
+      "type": "object",
+      "description": "Represents a sales transaction.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the transaction."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to the User entity. (Relationship: User 1:N Transaction)"
+        },
+        "date": {
+          "type": "string",
+          "description": "The date of the transaction.",
+          "format": "date-time"
+        },
+        "amount": {
+          "type": "number",
+          "description": "The amount of the transaction."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "date",
+        "amount"
+      ]
+    },
+    "Survey": {
+      "title": "Survey",
+      "type": "object",
+      "description": "Represents the user's answers to the initial onboarding survey.",
+      "properties": {
+        "userId": { "type": "string" },
+        "goal": { "type": "string" },
+        "businessName": { "type": "string" },
+        "websiteUrl": { "type": "string", "format": "uri" },
+        "industry": { "type": "string" },
+        "teamSize": { "type": "string" },
+        "challenge": { "type": "string" },
+        "competitorUrl": { "type": "string", "format": "uri" },
+        "revenue": { "type": "string" },
+        "tracking": { "type": "string" },
+        "objective": { "type": "string" },
+        "submittedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "userId", "goal", "businessName", "websiteUrl", "industry", "teamSize", "challenge", "competitorUrl", "revenue", "tracking", "objective"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profile information. Only the user can read/write their own profile.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/goals/{goalId}",
+        "definition": {
+          "entityName": "Goal",
+          "schema": {
+            "$ref": "#/backend/entities/Goal"
+          },
+          "description": "Stores yearly goals set by the user. Includes denormalized 'userId' for authorization independence.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "goalId",
+              "description": "The unique identifier of the goal."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/transactions/{transactionId}",
+        "definition": {
+          "entityName": "Transaction",
+          "schema": {
+            "$ref": "#/backend/entities/Transaction"
+          },
+          "description": "Stores sales transactions for the user. Includes denormalized 'userId' for authorization independence.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "transactionId",
+              "description": "The unique identifier of the transaction."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/surveys/{surveyId}",
+        "definition": {
+          "entityName": "Survey",
+          "schema": { "$ref": "#/backend/entities/Survey" },
+          "description": "Stores user's survey responses.",
+          "params": [
+            { "name": "userId", "description": "The unique identifier of the user." },
+            { "name": "surveyId", "description": "The unique identifier of the survey response." }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure is designed to support the core features of the GrowthOS application, focusing on goal tracking, personalized content ideation, competitive differentiation, sales funnel optimization, and data reporting.  The structure is designed to be secure and scalable following the core design principles. It avoids hierarchical authorization dependencies and ensures clarity of intent, DBAC, QAPs, and enforces invariants.\\n\\nAuthorization Independence:\\nTo ensure authorization independence, the `userId` is included in every document within the `goals` and `transactions` collections. This eliminates the need for `get()` calls in the security rules, allowing atomic operations and simplifying debugging.\\n\\nStructural Segregation:\\nEach collection (`goals`, `transactions`, `surveys`) contains documents with the same security requirements, ensuring a homogeneous security posture.  This segregation simplifies the security rules.\\n\\nAccess Modeling:\\nPath-based ownership is used for user-owned data, such as goals and transactions. This approach provides a simple and efficient way to manage access control.  The data for a specific user is stored under the `/users/{userId}` path, making it easy to secure data based on the authenticated user's ID.\\n\\nQAPs (Rules are not Filters):\\nThe use of path-based ownership, combined with the denormalization of the `userId` within each document, ensures that list operations can be securely implemented without the need for filtering data based on user identity within the rules themselves.  The list operations are scoped to the user's path, ensuring that only the user's data is retrieved.\\n\\nData Clarity and Predictability:\\nThe schema for each entity (`User`, `Goal`, `Transaction`, `Survey`) is well-defined and predictable, avoiding dynamic keys and enforcing semantic naming conventions.  This improves the clarity and maintainability of the data structure."
+  }
+}
