@@ -25,6 +25,7 @@ import {
   Zap,
   Leaf,
   Menu,
+  Palette,
 } from 'lucide-react';
 import { useEffect } from 'react';
 import Link from 'next/link';
@@ -74,9 +75,9 @@ export default function Home() {
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/50 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 cursor-pointer">
-            <Leaf className="text-primary" />
+            <Palette className="text-primary" />
             <span className="text-lg font-semibold tracking-tighter text-white font-display">
-              GrowthOS
+              Pixo
             </span>
           </Link>
           {/* Desktop Menu */}
@@ -167,19 +168,18 @@ export default function Home() {
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <div className="reveal inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 mb-8">
-            <Trophy className="text-primary/80 text-xs" />
+            <Sparkles className="text-primary/80 text-xs" />
             <span className="text-xs font-medium text-primary/70 tracking-wide uppercase">
-              AI-Powered Growth Platform
+              Open-Source Graphic Design Studio
             </span>
           </div>
 
           <h1 className="reveal delay-100 md:text-7xl leading-[1.1] text-5xl text-white tracking-tight mb-6 font-display font-medium">
-            Your OS for Sustainable Business Growth
+            The Open Alternative to Canva
           </h1>
 
           <p className="reveal delay-200 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
-            Leverage our AI-powered OS to innovate, drive efficiency, and unlock
-            your full growth potential. Turn data into actionable intelligence.
+            Don&apos;t just generate pixels. Manipulate designs. Pixo uses AI tool-calling to build, edit, and optimize your creative assets locally and transparently.
           </p>
 
           <div className="reveal delay-300 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -215,13 +215,10 @@ export default function Home() {
       <section id="strategy" className="py-24 px-6 border-b border-white/5 bg-surface/30 scroll-mt-16">
         <div className="max-w-3xl mx-auto text-center reveal">
           <h2 className="text-3xl md:text-4xl tracking-tight text-white mb-6 font-display font-medium">
-            Transform Your Business with GrowthOS
+            Design at the Speed of Thought
           </h2>
           <p className="text-gray-400 leading-relaxed">
-            Our platform guides you through every step of your growth journey,
-            from initial strategy to implementing cutting-edge, AI-powered
-            solutions tailored to your unique needs. We don&apos;t just build
-            tools; we build business value.
+            Pixo isn&apos;t just another design tool. It&apos;s a platform where AI agents collaborate with you on the canvas. Instead of static diffusion outputs, we focus on functional tool-calling that keeps every layer editable and every design professional.
           </p>
         </div>
       </section>
@@ -658,10 +655,10 @@ export default function Home() {
           <div className="reveal delay-100 grid grid-cols-2 md:grid-cols-4 gap-12 border-t border-white/10 pt-16">
             <div className="col-span-2 md:col-span-1">
               <span className="text-lg font-semibold tracking-tighter text-white block mb-4 font-display">
-                GrowthOS
+                Pixo
               </span>
               <p className="text-xs text-gray-500 mb-4 leading-relaxed">
-                Your OS for Sustainable Business Growth.
+                The Open-Source Graphic Design Studio.
               </p>
             </div>
 
@@ -736,7 +733,7 @@ export default function Home() {
           </div>
 
           <div className="reveal delay-200 mt-16 pt-8 border-t border-white/5 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-700">
-            <p>© 2024 GrowthOS. All rights reserved.</p>
+            <p>© 2026 Pixo. All rights reserved.</p>
             <div className="flex gap-4 mt-4 md:mt-0">
               <a href="#" className="hover:text-gray-500 cursor-pointer">
                 Privacy

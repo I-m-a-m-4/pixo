@@ -4,8 +4,7 @@ Pixo is a high-performance **open-source creative design studio** built for the 
 
 While tools like Canva dominate the space, they remain closed ecosystems. Pixo was born from the need for an open-source alternative that doesn't just "generate pixels" with diffusion models, but actually **understands and manipulates design tools** through AI tool-calling.
 
-![Pixo UI in Action](./pixo-ui.png)
-*(Note: Please replace pixo-ui.png with your uploaded screenshot)*
+![Pixo UI in Action](./public/PIXO.jpg)
 
 ## 🧠 The Vision: AI Tool-Calling vs. Diffusion
 

@@ -6,8 +6,8 @@ import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { NextTopLoader } from '@/components/ui/next-top-loader';
 
 export const metadata: Metadata = {
-  title: 'GrowthOS',
-  description: 'Your specialized Business Strategist and Content Architect.',
+  title: 'Pixo | Open-Source Graphic Design Studio',
+  description: 'The open-source alternative to Canva. Built for AI tool-calling and professional design manipulation.',
 };
 
 export default function RootLayout({
