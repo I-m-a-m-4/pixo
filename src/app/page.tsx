@@ -27,10 +27,19 @@ import {
   Menu,
   Palette,
 } from 'lucide-react';
-import { redirect } from 'next/navigation';
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetClose,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet';
 
 export default function Home() {
-  redirect('/dashboard');
   useEffect(() => {
     const observerOptions = {
       threshold: 0.15,
@@ -83,10 +92,10 @@ export default function Home() {
               Contact
             </a>
             <div className="flex items-center gap-2">
-                <Link href="/login" className="h-9 px-4 rounded-full bg-transparent text-white border border-white/20 text-xs font-medium hover:bg-white/5 transition-all flex items-center justify-center cursor-pointer">
+                <Link href="/dashboard" className="h-9 px-4 rounded-full bg-transparent text-white border border-white/20 text-xs font-medium hover:bg-white/5 transition-all flex items-center justify-center cursor-pointer">
                   Login
                 </Link>
-                <Link href="/signup" className="h-9 px-4 rounded-full bg-primary text-black text-xs font-medium hover:bg-primary/90 transition-all flex items-center justify-center cursor-pointer">
+                <Link href="/dashboard" className="h-9 px-4 rounded-full bg-primary text-black text-xs font-medium hover:bg-primary/90 transition-all flex items-center justify-center cursor-pointer">
                   Sign Up
                 </Link>
             </div>
@@ -135,12 +144,12 @@ export default function Home() {
                   </SheetClose>
                   <div className="flex flex-col items-center gap-4 mt-4">
                      <SheetClose asChild>
-                        <Link href="/login" className="w-full h-11 px-6 rounded-full bg-transparent text-white border border-white/20 text-sm font-medium hover:bg-white/5 transition-all flex items-center justify-center cursor-pointer">
+                        <Link href="/dashboard" className="w-full h-11 px-6 rounded-full bg-transparent text-white border border-white/20 text-sm font-medium hover:bg-white/5 transition-all flex items-center justify-center cursor-pointer">
                             Login
                         </Link>
                      </SheetClose>
                       <SheetClose asChild>
-                        <Link href="/signup" className="w-full h-11 px-6 rounded-full bg-primary text-black text-sm font-medium hover:bg-primary/90 transition-all flex items-center justify-center cursor-pointer">
+                        <Link href="/dashboard" className="w-full h-11 px-6 rounded-full bg-primary text-black text-sm font-medium hover:bg-primary/90 transition-all flex items-center justify-center cursor-pointer">
                             Sign Up
                         </Link>
                       </SheetClose>
@@ -174,7 +183,7 @@ export default function Home() {
           </p>
 
           <div className="reveal delay-300 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/signup" className="h-10 px-6 rounded-full bg-white text-black text-sm font-medium hover:bg-gray-200 transition-all flex items-center gap-2 cursor-pointer">
+            <Link href="/dashboard" className="h-10 px-6 rounded-full bg-white text-black text-sm font-medium hover:bg-gray-200 transition-all flex items-center gap-2 cursor-pointer">
               Get Started Free
               <ArrowRight className="text-black" />
             </Link>
