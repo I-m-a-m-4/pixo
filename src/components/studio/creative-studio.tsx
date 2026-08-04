@@ -241,13 +241,21 @@ export default function CreativeStudio() {
     const [elementsCategory, setElementsCategory] = useState<string | null>(null);
     const [customResizeWidth, setCustomResizeWidth] = useState(800);
     const [customResizeHeight, setCustomResizeHeight] = useState(800);
-    const [pages, setPages] = useState<{ id: string, name: string }[]>([{ id: uuidv4(), name: 'Page 1' }]);
+    const [pages, setPages] = useState<{ id: string, name: string }[]>([]);
     const [activePageId, setActivePageId] = useState<string | null>(null);
     const [documentColors, setDocumentColors] = useState<string[]>(['#000000', '#ffffff', '#FF5733', '#00ffcc', '#8b5cf6']);
     const [showColorPicker, setShowColorPicker] = useState(false);
     const [uploadedImages, setUploadedImages] = useState<string[]>([]);
     const [contextMenu, setContextMenu] = useState<{ x: number, y: number, target: fabric.Object | null } | null>(null);
     const fabricCanvases = useRef<Map<string, fabric.Canvas>>(new Map());
+
+    useEffect(() => {
+        if (pages.length === 0) {
+            const firstPageId = uuidv4();
+            setPages([{ id: firstPageId, name: 'Page 1' }]);
+            setActivePageId(firstPageId);
+        }
+    }, [pages]);
 
     // Alias for compatibility with existing functions (points to active canvas)
     const fabricCanvas = {
