@@ -27,19 +27,10 @@ import {
   Menu,
   Palette,
 } from 'lucide-react';
-import { useEffect } from 'react';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetClose,
-  SheetHeader,
-  SheetTitle,
-} from '@/components/ui/sheet';
+import { redirect } from 'next/navigation';
 
 export default function Home() {
+  redirect('/dashboard');
   useEffect(() => {
     const observerOptions = {
       threshold: 0.15,

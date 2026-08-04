@@ -55,43 +55,6 @@ function DashboardSkeleton() {
 
 
 export default function DashboardPage() {
-  const { user, isUserLoading } = useUser();
-  const firestore = useFirestore();
-  const router = useRouter();
-
-  const userDocRef = useMemoFirebase(() => {
-    if (!user) return null;
-    return doc(firestore, 'users', user.uid);
-  }, [firestore, user]);
-
-  const surveyDocRef = useMemoFirebase(() => {
-    if (!user) return null;
-    return doc(firestore, `users/${user.uid}/surveys/initial`);
-  }, [firestore, user]);
-
-  const { data: userData, isLoading: isUserDocLoading } = useDoc(userDocRef);
-  const { data: surveyData, isLoading: isSurveyLoading } = useDoc(surveyDocRef);
-
-
-  const handleLogout = async () => {
-    const auth = getAuth();
-    await signOut(auth);
-    router.push('/login');
-  };
-
-  const isLoading = isUserLoading || isUserDocLoading || isSurveyLoading;
-
-  useEffect(() => {
-    if (!isUserLoading && !user) {
-      router.push('/login');
-    }
-  }, [isUserLoading, user, router]);
-
-  if (isLoading || !user) {
-    return <DashboardSkeleton />;
-  }
-
-
   return (
     <div className="h-screen overflow-hidden bg-background text-white flex flex-col">
       <main className="flex-grow overflow-hidden relative">
